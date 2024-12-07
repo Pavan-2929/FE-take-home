@@ -107,7 +107,7 @@ const NewDataModal = ({ toggleModal, addData }: NewDataModalProps) => {
         ref={modalRef}
         className="relative bg-white p-4 md:p-8 rounded-lg shadow-lg md:w-[60vw] lg:w-[40vw] w-full"
       >
-        <div className="flex items-center justify-between">
+        <div className="flex md:flex-row flex-col items-center justify-between">
           <h1 className="text-xl font-semibold mb-4">New Data Modal</h1>
           <div className="flex space-x-4">
             <button
@@ -167,7 +167,7 @@ const NewDataModal = ({ toggleModal, addData }: NewDataModalProps) => {
               </div>
             </div>
           )}
-          <div className="flex space-x-6">
+          <div className="flex justify-center md:justify-start space-x-6">
             <button
               type="submit"
               className="px-6 py-2 bg-blue-500 text-white rounded-lg mt-4"

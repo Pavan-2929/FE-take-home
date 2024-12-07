@@ -1,4 +1,3 @@
-// DataTable.tsx
 import React, { useState } from "react";
 import { FaEye } from "react-icons/fa";
 import { Tooltip } from "react-tooltip";
@@ -27,16 +26,15 @@ const DataTable = ({ items }: DataTableProps) => {
   };
 
   return (
-    <div>
-      <table className="w-full mt-4 border ">
+    <div className="overflow-x-auto">
+      <table className="min-w-full mt-4 border text-sm sm:text-base">
         <thead className="text-[#525F71] font-semibold">
           <tr>
-            <th className="py-4 text-left pl-28 pr-12">ID</th>
-            <th className="py-4 text-left">Title</th>
-            <th className="py-4 text-left">Actions</th>
+            <th className="py-4 text-left px-4 sm:px-8 lg:pl-36">ID</th>
+            <th className="py-4 text-left px-4 sm:px-8 ">Title</th>
           </tr>
         </thead>
-        <tbody className="text-[13px]">
+        <tbody>
           {items.map((item) => (
             <tr
               key={item.id}
@@ -44,14 +42,18 @@ const DataTable = ({ items }: DataTableProps) => {
                 item.id % 2 === 0 ? "bg-white" : "bg-[#F9FAFB]"
               }`}
             >
-              <td className="py-4 text-left pl-28 pr-12">{item.id}</td>
-              <td className="text-left py-4">{item.title || item.name}</td>
+              <td className="py-4 text-left px-4 sm:px-8 lg:pl-36">
+                {item.id}
+              </td>
+              <td className="py-4 text-left px-4 sm:px-8">
+                {item.title || item.name}
+              </td>
               <td
-                className="cursor-pointer text-[#525F71] pr-6"
+                className="cursor-pointer text-[#525F71] pr-6 text-center sm:text-left"
                 data-tooltip-id="preview-tooltip"
                 data-tooltip-content="View Details"
               >
-                <FaEye size={14} onClick={() => toggleModal(item)} />
+                <FaEye size={16} onClick={() => toggleModal(item)} />
               </td>
             </tr>
           ))}

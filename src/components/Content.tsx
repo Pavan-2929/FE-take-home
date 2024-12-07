@@ -122,8 +122,8 @@ const Content = ({ data }: { data: string }) => {
   };
 
   return (
-    <div className="px-6 mt-6 mb-8">
-      <div className="bg-white px-6 py-4 border border-[#EAECF0] font-montserrat ">
+    <div className="px-2 sm:px-4 lg:px-6 mt-6 mb-8">
+      <div className="bg-white px-2 sm:px-4 lg:px-6 py-4 border border-[#EAECF0] font-montserrat ">
         <div className="flex justify-between items-center">
           <p className="font-sans font-bold text-[#344054]">
             Displaying Content
@@ -132,7 +132,7 @@ const Content = ({ data }: { data: string }) => {
             onClick={toggleModal}
             className="flex items-center gap-x-3 px-3 py-1 rounded-lg border bg-gray-200 border-[#344054] cursor-pointer"
           >
-            Add Data
+            Add <span className="hidden lg:inline-block">Data</span>
             <FaPlus className="text-[#344054]" />
           </div>
         </div>
@@ -146,7 +146,7 @@ const Content = ({ data }: { data: string }) => {
           </button>
           {getVisiblePages().map((page, index) => (
             <button
-              className={`cursor-pointer hover:text-blue-500 px-2 py-2 mx-1 ${
+              className={`cursor-pointer hover:text-blue-500 md:px-2 py-2 md:mx-1 px-1 ${
                 page === currentPage
                   ? "text-blue-500 font-medium"
                   : "text-zinc-900"

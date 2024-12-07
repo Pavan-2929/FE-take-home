@@ -18,16 +18,16 @@ const App: React.FC = () => {
 
   return (
     <div>
-      <div className="px-12 py-5 border-b border-[#DFDFDF]">
-        <p className="font-montserrat text-[32px] font-medium">
+      <div className="lg:px-12 md:px-6 sm:px-4 px-2 py-5 border-b border-[#DFDFDF] ">
+        <p className="font-montserrat lg:text-[32px] text-3xl text-center leading- lg:text-start font-medium">
           Dynamic Content Manager
         </p>
       </div>
-      <div className="px-12 py-5 font-bold text-[#344054]">
+      <div className="px-2 sm:px-6 lg:px-12 py-5 font-bold text-[#344054]">
         <p>Fetch Content</p>
       </div>
-      <div className="px-5 w-fit">
-        <div className="min-w-[300px] px-6 py-4 bg-white border border-[#EAECF0] rounded-lg">
+      <div className="px-1 lg:px-5 w-fit max-w-[100vw]">
+        <div className="min-w-[300px] px-1 sm:px-4 lg:px-6 py-4 bg-white border border-[#EAECF0] rounded-lg">
           <div className="relative">
             <div
               onClick={toggleMenu}

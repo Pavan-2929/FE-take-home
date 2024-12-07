@@ -20,7 +20,7 @@ const PreviewModal = ({ item, toggleModal }: ItemProps) => {
       onClick={toggleModal}
     >
       <div
-        className="relative bg-gray-300 p-6 rounded-lg shadow-xl w-[80vw] sm:w-[60vw] lg:w-[55vw]"
+        className="relative bg-gray-300 p-6 rounded-lg shadow-xl w-[90vw] sm:w-[60vw] lg:w-[55vw]"
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex justify-between items-center mb-4">
