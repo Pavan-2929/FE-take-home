@@ -1,15 +1,32 @@
 import { useEffect, useState } from "react";
-import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import { FaChevronLeft, FaChevronRight, FaPlus } from "react-icons/fa";
 import DataTable from "./DataTable";
 import Loader from "./Loader";
+import NewDataModal from "./NewDataModal";
 
 const Content = ({ data }: { data: string }) => {
-  const [items, setItems] = useState([]);
+  type Item = {
+    id: number;
+    title?: string;
+    body?: string;
+    [key: string]: any;
+  };
+
+  const [items, setItems] = useState<Item[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string>("");
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
+  const [modal, setModal] = useState(false);
   const itemsPerPage = 10;
+
+  const toggleModal = () => {
+    setModal(!modal);
+  };
+
+  const addData = (newData: Item) => {
+    setItems((prevItems) => [newData, ...prevItems]);
+  };
 
   const fetchItems = async (page: number) => {
     setLoading(true);
@@ -107,10 +124,17 @@ const Content = ({ data }: { data: string }) => {
   return (
     <div className="px-6 mt-6 mb-8">
       <div className="bg-white px-6 py-4 border border-[#EAECF0] font-montserrat ">
-        <div>
+        <div className="flex justify-between items-center">
           <p className="font-sans font-bold text-[#344054]">
             Displaying Content
           </p>
+          <div
+            onClick={toggleModal}
+            className="flex items-center gap-x-3 px-3 py-1 rounded-lg border bg-gray-200 border-[#344054] cursor-pointer"
+          >
+            Add Data
+            <FaPlus className="text-[#344054]" />
+          </div>
         </div>
         <DataTable items={items} />
         <div className="mt-4">
@@ -145,10 +169,14 @@ const Content = ({ data }: { data: string }) => {
         </div>
       </div>
       <div className="flex justify-center my-4">
-        <button onClick={handleDownload} className="font-semibold text-lg bg-[#D1CFFF] px-9 py-2 rounded-lg">
+        <button
+          onClick={handleDownload}
+          className="font-semibold text-lg bg-[#D1CFFF] px-9 py-2 rounded-lg"
+        >
           Download
         </button>
       </div>
+      {modal && <NewDataModal toggleModal={toggleModal} addData={addData} />}
     </div>
   );
 };
