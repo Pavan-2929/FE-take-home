@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
 type NewDataModalProps = {
   toggleModal: () => void;
@@ -20,6 +20,22 @@ const NewDataModal = ({ toggleModal, addData }: NewDataModalProps) => {
     email: "dummyemail@gmail.com",
     body: "dummy boddy",
   });
+
+  const modalRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleOutsideClick = (e: MouseEvent) => {
+      if (modalRef.current && !modalRef.current.contains(e.target as Node)) {
+        toggleModal();
+      }
+    };
+
+    document.addEventListener("mousedown", handleOutsideClick);
+
+    return () => {
+      document.removeEventListener("mousedown", handleOutsideClick);
+    };
+  }, [toggleModal]);
 
   const handleButtonClick = (type: string) => {
     setSelectedType(type);
@@ -61,19 +77,36 @@ const NewDataModal = ({ toggleModal, addData }: NewDataModalProps) => {
       setPostData({ userId: "11", title: "", body: "dummy body" });
       toggleModal();
     } else {
-      console.log("Comment data:", commentData);
-      addData(commentData);
+      fetch("https://jsonplaceholder.typicode.com/comments", {
+        method: "POST",
+        body: JSON.stringify(commentData),
+        headers: {
+          "Content-type": "application/json; charset=UTF-8",
+        },
+      })
+        .then((response) => response.json())
+        .then((json) => {
+          console.log(json);
+          addData(json);
+        });
       setCommentData({
         userId: "11",
         name: "",
         email: "dummyemail@gmail.com",
         body: "dummy boddy",
       });
+      toggleModal();
     }
   };
+
   return (
-    <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50 z-50">
-      <div className="relative bg-white p-4 md:p-8 rounded-lg shadow-lg md:w-[60vw] lg:w-[40vw] w-full ">
+    <div
+      className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50 z-50"
+    >
+      <div
+        ref={modalRef}
+        className="relative bg-white p-4 md:p-8 rounded-lg shadow-lg md:w-[60vw] lg:w-[40vw] w-full"
+      >
         <div className="flex items-center justify-between">
           <h1 className="text-xl font-semibold mb-4">New Data Modal</h1>
           <div className="flex space-x-4">
@@ -147,7 +180,7 @@ const NewDataModal = ({ toggleModal, addData }: NewDataModalProps) => {
             >
               Close
             </button>
-          </div>{" "}
+          </div>
         </form>
       </div>
     </div>
