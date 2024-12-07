@@ -94,8 +94,18 @@ const Content = ({ data }: { data: string }) => {
     return visiblePages;
   };
 
+  const handleDownload = () => {
+    const blob = new Blob([JSON.stringify(items, null, 2)], {
+      type: "application/json",
+    });
+    const link = document.createElement("a");
+    link.href = URL.createObjectURL(blob);
+    link.download = "items_data.json";
+    link.click();
+  };
+
   return (
-    <div className="px-6 mt-6 mb-12">
+    <div className="px-6 mt-6 mb-8">
       <div className="bg-white px-6 py-4 border border-[#EAECF0] font-montserrat ">
         <div>
           <p className="font-sans font-bold text-[#344054]">
@@ -133,6 +143,11 @@ const Content = ({ data }: { data: string }) => {
             <FaChevronRight className="hover:text-blue-500 cursor-pointer size-9 pt-6 text-[#888888]" />
           </button>
         </div>
+      </div>
+      <div className="flex justify-center my-4">
+        <button onClick={handleDownload} className="font-semibold text-lg bg-[#D1CFFF] px-9 py-2 rounded-lg">
+          Download
+        </button>
       </div>
     </div>
   );
